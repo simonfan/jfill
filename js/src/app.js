@@ -1,6 +1,5 @@
 /* ------------------------------------------------ *\
 	jFill
-	
 	jQuery plugin for filling up html elements with data in an intelligent manner.
 	
 	version: 1.0.0
