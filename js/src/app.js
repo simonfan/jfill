@@ -29,19 +29,26 @@ define(['jquery'], function($) {
 					break;
 					
 				case 'checkbox':
-					var filter;
+					var checkFunc;
 					
 					if (typeof value === 'string') {
-						filter = function() {
-							return $(this).val() == value;
+						checkFunc = function(el) {
+							return $(el).val() == value;
 						}
 					} else if ( _.isArray(value) ) {
-						filter = function() {
-							return $.inArray( $(this).val(), value) > -1;
+						checkFunc = function(el) {
+							return $.inArray( $(el).val(), value) > -1;
 						}
 					}
 					
-					$el.filter(filter).attr('checked', true);
+					$el.each(function(index, el) {
+						if ( checkFunc(el) ) {
+							$(el).prop('checked',true);
+						} else {
+							$(el).prop('checked',false);
+						}
+					});
+					
 					break;
 			}
 		},
