@@ -25,7 +25,11 @@ define(['jquery'], function($) {
 			
 			switch( $el.attr('type') ) {
 				case 'text':
-					$el.val(value);
+					var old = $el.val();
+					
+					// only change if old and new values are different
+					if (old != value)
+						$el.val(value).trigger('change');
 					break;
 					
 				case 'radio':
@@ -38,34 +42,34 @@ define(['jquery'], function($) {
 					var checkFunc;
 					
 					if (typeof value === 'string') {
-						checkFunc = function(el) {
-							return $(el).val() == value;
+						checkFunc = function($el) {
+							return $el.val() == value;
 						}
 					} else if ( _.isArray(value) ) {
-						checkFunc = function(el) {
-							return $.inArray( $(el).val(), value) > -1;
+						checkFunc = function($el) {
+							return $.inArray( $el.val(), value) > -1;
 						}
 					}
 					
 					$el.each(function(index, el) {
-						if ( checkFunc(el) ) {
-							$(el).prop('checked',true);
-						} else {
-							$(el).prop('checked',false);
+						var $box = $(el),
+								checked = checkFunc($box),
+								old = $box.prop('checked');
+					
+						if ( checked && old !== true ) {
+							$box.prop('checked',true).trigger('change');
+						} else if ( !checked && old !== false) {
+							$box.prop('checked',false).trigger('change');
 						}
 					});
 					
 					break;
 			}
-					
-			$el.trigger('change');
 		},
 		'SELECT': function($el, value) {
 			$el.find('option').filter(function() {
 				return $(this).val() == value;	
-			}).attr('selected', true);
-			
-			$el.trigger('change');
+			}).attr('selected', true).trigger('change');
 		},
 		
 		// errors

@@ -18,7 +18,7 @@ define(['app'], function(app) {
 		
 		'input[name="test-radios"]': 'second',
 		
-		'input[name="test-checks"]': ['first','third']
+		'input[name="test-checks"]': ['third']
 	});
 	
 	
