@@ -2,7 +2,7 @@
 	jFill
 	jQuery plugin for filling up html elements with data in an intelligent manner.
 	
-	version: 1.0.0
+	version: 1.0.1
 \* ------------------------------------------------ */
 
 define(['jquery'], function($) {
